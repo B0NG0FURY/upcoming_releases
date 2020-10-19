@@ -21,14 +21,19 @@ class Scraper
         info = {}
         description = doc.css("div.item-meta p").text
         doc.css("div.item").each do |format|
-            type = format.css("h5").text
+            type = format.css("h5").text.downcase
             type = type.split(" ")
+            if type[0] == "2xlp"
+                type[0] = "lp"
+            end
             date = format.css("p").text
             date = date.slice(0..9)
-            info[type[0].to_sym] = {
-                :price => type[1],
-                :release_date => date
-            }
+            if type[0] == "lp" || type[0] == "cd" || type[0] == "mp3"
+                info[type[0].to_sym] = {
+                  :price => type[1],
+                  :release_date => date
+                }
+            end
         end
         info[:description] = description
         info
