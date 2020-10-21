@@ -6,10 +6,10 @@ class Scraper
         result = []
         doc.css("div.product-page div.uk-grid div.album").each do |album|
             info = {
-                :name = album.css("h5").text,
-                :artist = album.css("h4 a").text,
-                :label = album.css("h6 a").text,
-                :info_url = album..css("a")[0]["href"]
+                :name => album.css("h5").text,
+                :artist => album.css("h4 a").text,
+                :label => album.css("h6 a").text,
+                :info_url => album.css("a")[0]["href"]
             }
             result << info
         end
@@ -56,4 +56,4 @@ end
   #formats[type[0].to_sym] = {
       #:price => type[1],
       #:release_date => date
-    }
+    #}
