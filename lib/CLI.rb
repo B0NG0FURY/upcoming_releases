@@ -17,5 +17,21 @@ class CommandLineInterface
         end
     end
 
-    
+    def artist_list
+       list = Album.all.sort_by {|album| album.artist}
+       list.each_with_index do |album, i|
+        puts "#{i + 1}. Artist: #{album.artist}   Album: #{album.name}   Label: #{album.label}"
+       end
+       input = ""
+       until input >= 0 && input < list.count
+        puts "Enter number of album for more information"
+        input = gets.strip.to_i - 1
+        album = list[input]
+        puts "LP: #{album.lp[price]}, #{album.lp[release_date]}"
+        puts "CD: #{album.cd[price]}, #{album.cd[release_date]}"
+        puts "MP3: #{album.mp3[price]}, #{album.mp3[release_date]}"
+        puts " "
+        puts "#{album.description}"
+       end
+    end
 end
