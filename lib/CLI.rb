@@ -5,7 +5,26 @@ require 'nokogiri'
 class CommandLineInterface
     ALBUM_URL = "https://www.midheaven.com"
 
-    
+    def run
+        get_albums
+        add_info
+        list_albums
+    end
+
+    def list_albums
+        puts "To see upcoming releases in order of artist enter 'list artist'."
+        puts "To see upcoming releases in order of record label enter 'list label'."
+        puts "Enter 'exit' to leave program'."
+        input = ""
+        until input = "exit"
+            input = gets.strip
+            if input = "list artist"
+                artist_list
+            elsif input = "list label"
+                label_list
+            end
+        end
+    end
 
     def get_albums
         albums = Scraper.scrape_release_page(ALBUM_URL + "/upcoming-releases")
