@@ -14,7 +14,7 @@ class CommandLineInterface
     def list_albums
         puts "To see upcoming releases in order of artist enter 'list artist'."
         puts "To see upcoming releases in order of record label enter 'list label'."
-        puts "Enter 'exit' to leave program'."
+        puts "Or enter 'exit' to leave program'."
         input = ""
         until input = "exit"
             input = gets.strip
@@ -50,6 +50,7 @@ class CommandLineInterface
         album = list[input]
         print_info(album)
        end
+       decision_loop
     end
 
     def label_list
@@ -73,5 +74,17 @@ class CommandLineInterface
          puts " "
          puts "#{album.description}"
          puts "--------------------"
+     end
+
+     def decision_loop
+        puts "Enter 'back' to view more upcoming album releases."
+        puts "Or enter 'exit' to leave program"
+        input = ""
+        until input = "exit"
+         input = gets.strip
+         if input = "back"
+             list_albums
+         end
+        end
      end
 end
