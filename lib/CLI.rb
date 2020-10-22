@@ -5,6 +5,8 @@ require 'nokogiri'
 class CommandLineInterface
     ALBUM_URL = "https://www.midheaven.com"
 
+    
+
     def get_albums
         albums = Scraper.scrape_release_page(ALBUM_URL + "/upcoming-releases")
         Album.create_albums(albums)
@@ -27,11 +29,7 @@ class CommandLineInterface
         puts "Enter number of album for more information"
         input = gets.strip.to_i - 1
         album = list[input]
-        puts "LP: #{album.lp[price]}, #{album.lp[release_date]}"
-        puts "CD: #{album.cd[price]}, #{album.cd[release_date]}"
-        puts "MP3: #{album.mp3[price]}, #{album.mp3[release_date]}"
-        puts " "
-        puts "#{album.description}"
+        print_info(album)
        end
     end
 
@@ -45,11 +43,16 @@ class CommandLineInterface
          puts "Enter number of album for more information"
          input = gets.strip.to_i - 1
          album = list[input]
-         puts "LP: #{album.lp[price]}, #{album.lp[release_date]}"
-         puts "CD: #{album.cd[price]}, #{album.cd[release_date]}"
-         puts "MP3: #{album.mp3[price]}, #{album.mp3[release_date]}"
+         print_info(album)
+        end
+     end
+
+     def print_info(album)
+         puts "LP: #{album.lp[:price]}, #{album.lp[:release_date]}"
+         puts "CD: #{album.cd[:price]}, #{album.cd[:release_date]}"
+         puts "MP3: #{album.mp3[:price]}, #{album.mp3[:release_date]}"
          puts " "
          puts "#{album.description}"
-        end
+         puts "--------------------"
      end
 end
