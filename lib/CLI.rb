@@ -7,13 +7,16 @@ class CommandLineInterface
     ALBUM_URL = "https://www.midheaven.com"
 
     def run
-        puts "Just a moment while we gather all upcoming album releases...."
+        puts "********************"
+        puts "One moment please, currently searching for all upcoming album releases...."
+        puts "********************"
         get_albums
         add_info
         list_albums
     end
 
     def list_albums
+        puts " "
         puts "To see upcoming releases in order of artist enter 'list artist'"
         puts "To see upcoming releases in order of record label enter 'list label'"
         puts "Or enter 'exit' to leave program"
@@ -24,6 +27,8 @@ class CommandLineInterface
                 artist_list
             elsif input == "list label"
                 label_list
+            elsif input == "exit"
+                exit
             end
         end
     end
@@ -72,6 +77,8 @@ class CommandLineInterface
 
      def print_info(album)
         puts "--------------------"
+        puts "#{album.artist} - #{album.name}"
+        puts "                    "
         if album.lp != nil
          puts "LP: #{album.lp[:price]}, #{album.lp[:release_date]}"
         end
