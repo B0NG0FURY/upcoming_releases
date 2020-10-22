@@ -26,9 +26,12 @@ class Scraper
             if type[0] == "2xlp"
                 type[0] = "lp"
             end
+            if type[0] == '7"'
+                type[0] = "seven_inch"
+            end
             date = format.css("p").text
             date = date.slice(0..9)
-            if type[0] == "lp" || type[0] == "cd" || type[0] == "mp3"
+            if type[0] == "lp" || type[0] == "cd" || type[0] == "mp3" || type[0] == "seven_inch"
                 info[type[0].to_sym] = {
                   :price => type[1],
                   :release_date => date

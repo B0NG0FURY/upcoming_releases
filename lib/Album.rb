@@ -1,5 +1,5 @@
 class Album
-    attr_accessor :name, :artist, :label, :info_url, :lp, :cd, :mp3, :description
+    attr_accessor :name, :artist, :label, :info_url, :lp, :cd, :mp3, :seven_inch, :description
 
     @@all = []
 
