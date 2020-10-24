@@ -1,27 +1,27 @@
-require_relative "../lib/scraper.rb"
-require_relative "../lib/album.rb"
 require 'nokogiri'
 require 'pry'
 
+require_relative "../lib/scraper.rb"
+require_relative "../lib/album.rb"
+
 class CommandLineInterface
-    ALBUM_URL = "https://www.midheaven.com"
+    ALBUM_URL = "https://midheaven.com"
 
     def run
         puts "********************"
-        puts "One moment please, currently searching for all upcoming album releases...."
+        puts "Searching for all upcoming album releases...."
         puts "********************"
         get_albums
-        add_info
         list_albums
     end
 
     def list_albums
         puts " "
-        puts "To see upcoming releases in order of artist enter 'list artist'"
-        puts "To see upcoming releases in order of record label enter 'list label'"
-        puts "Or enter 'exit' to leave program"
         input = ""
         until input == "exit"
+            puts "To see upcoming releases in order of artist enter 'list artist'"
+            puts "To see upcoming releases in order of record label enter 'list label'"
+            puts "Or enter 'exit' to leave program"
             input = gets.strip
             if input == "list artist"
                 artist_list
@@ -45,19 +45,17 @@ class CommandLineInterface
         end
     end
 
+    def get_album_info(album)
+        info = Scraper.scrape_info_page(ALBUM_URL + album.info_url)
+        album.add_album_info(info)
+    end
+
     def artist_list
        list = Album.all.sort_by {|album| album.artist}
        list.each_with_index do |album, i|
         puts "#{i + 1}. Artist: #{album.artist}   Album: #{album.name}   Label: #{album.label}"
        end
-       input = 0
-       until input > 0 && input <= list.count
-        puts "Enter number of album for more information"
-        input = gets.strip.to_i
-       end
-       album = list[input - 1]
-       print_info(album)
-       decision_loop
+       album_choice(list)
     end
 
     def label_list
@@ -65,12 +63,21 @@ class CommandLineInterface
         list.each_with_index do |album, i|
          puts "#{i + 1}. Label: #{album.label}   Artist: #{album.artist}   Album: #{album.name}"
         end
+        album_choice(list)
+    end
+
+     def album_choice(list)
         input = 0
         until input > 0 && input <= list.count
          puts "Enter number of album for more information"
          input = gets.strip.to_i
         end
         album = list[input - 1]
+        if album.description == nil
+            puts "Gathering info..."
+            puts ""
+            get_album_info(album)
+        end
         print_info(album)
         decision_loop
      end
@@ -99,7 +106,7 @@ class CommandLineInterface
      def decision_loop
         input = ""
         until input == "exit"
-            puts "Enter 'back' to view more upcoming album releases."
+            puts "Enter 'back' to view more upcoming album releases"
             puts "Or enter 'exit' to leave program"
             input = gets.strip
             if input == "back"
