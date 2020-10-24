@@ -19,7 +19,7 @@ class Scraper
     def self.scrape_info_page(info_url)
         doc = Nokogiri::HTML(open(info_url))
         info = {}
-        description = doc.css("div.item-meta p").text
+        description = doc.css("div.item-meta p").text.strip
         doc.css("div.item").each do |format|
             type = format.css("h5").text.downcase
             type = type.split(" ")
