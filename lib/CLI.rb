@@ -69,6 +69,7 @@ class CommandLineInterface
      def album_choice(list)
         input = 0
         until input > 0 && input <= list.count
+         puts "--------------------"
          puts "Enter number of album for more information"
          input = gets.strip.to_i
         end
