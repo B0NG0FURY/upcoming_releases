@@ -1,4 +1,4 @@
-class Album
+class UpcomingReleases::Album
     attr_accessor :name, :artist, :label, :info_url, :lp, :cd, :mp3, :seven_inch, :description
 
     @@all = []
@@ -13,7 +13,7 @@ class Album
     end
 
     def self.create_albums(album_array)
-        album_array.each {|album| Album.new(album)}
+        album_array.each {|album| self.new(album)}
     end
 
     def add_album_info(info_hash)

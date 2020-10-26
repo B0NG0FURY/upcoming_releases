@@ -1,10 +1,4 @@
-require 'nokogiri'
-require 'pry'
-
-require_relative "../lib/scraper.rb"
-require_relative "../lib/album.rb"
-
-class CommandLineInterface
+class UpcomingReleases::CommandLineInterface
     ALBUM_URL = "https://midheaven.com"
 
     def run
@@ -34,24 +28,24 @@ class CommandLineInterface
     end
 
     def get_albums
-        albums = Scraper.scrape_release_page(ALBUM_URL + "/upcoming-releases")
-        Album.create_albums(albums)
+        albums = UpcomingReleases::Scraper.scrape_release_page(ALBUM_URL + "/upcoming-releases")
+        UpcomingReleases::Album.create_albums(albums)
     end
 
     def add_info
-        Album.all.each do |album|
-            info = Scraper.scrape_info_page(ALBUM_URL + album.info_url)
+        UpcomingReleases::Album.all.each do |album|
+            info = UpcomingReleases::Scraper.scrape_info_page(ALBUM_URL + album.info_url)
             album.add_album_info(info)
         end
     end
 
     def get_album_info(album)
-        info = Scraper.scrape_info_page(ALBUM_URL + album.info_url)
+        info = UpcomingReleases::Scraper.scrape_info_page(ALBUM_URL + album.info_url)
         album.add_album_info(info)
     end
 
     def artist_list
-       list = Album.all.sort_by {|album| album.artist}
+       list = UpcomingReleases::Album.all.sort_by {|album| album.artist}
        list.each_with_index do |album, i|
         puts "#{i + 1}. Artist: #{album.artist}   Album: #{album.name}   Label: #{album.label}"
        end
@@ -59,7 +53,7 @@ class CommandLineInterface
     end
 
     def label_list
-        list = Album.all.sort_by {|album| album.label}
+        list = UpcomingReleases::Album.all.sort_by {|album| album.label}
         list.each_with_index do |album, i|
          puts "#{i + 1}. Label: #{album.label}   Artist: #{album.artist}   Album: #{album.name}"
         end

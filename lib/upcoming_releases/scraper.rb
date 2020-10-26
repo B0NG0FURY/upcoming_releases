@@ -1,6 +1,4 @@
-require 'open-uri'
-
-class Scraper
+class UpcomingReleases::Scraper
     def self.scrape_release_page(release_url)
         doc = Nokogiri::HTML(open(release_url))
         result = []
