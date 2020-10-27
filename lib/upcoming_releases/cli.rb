@@ -32,6 +32,7 @@ class UpcomingReleases::CommandLineInterface
         UpcomingReleases::Album.create_albums(albums)
     end
 
+    #not currently used - gathers info for all albums at once
     def add_info
         UpcomingReleases::Album.all.each do |album|
             info = UpcomingReleases::Scraper.scrape_info_page(ALBUM_URL + album.info_url)
@@ -39,6 +40,7 @@ class UpcomingReleases::CommandLineInterface
         end
     end
 
+    #grabs album info once album is selected from list
     def get_album_info(album)
         info = UpcomingReleases::Scraper.scrape_info_page(ALBUM_URL + album.info_url)
         album.add_album_info(info)

@@ -21,9 +21,11 @@ class UpcomingReleases::Scraper
         doc.css("div.item").each do |format|
             type = format.css("h5").text.downcase
             type = type.split(" ")
+            #changes 2lp format to just lp to properly make a symbol out of 'type' for hash
             if type[0] == "2xlp"
                 type[0] = "lp"
             end
+            #changes from number to letters to properly make a symbol for hash
             if type[0] == '7"'
                 type[0] = "seven_inch"
             end
