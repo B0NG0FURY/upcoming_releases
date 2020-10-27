@@ -20,7 +20,28 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+bin/upcoming-releases
+'list artist' for list ordered alphabetically by artist
+'list label' for list ordered alphabetically by record label
+
+75. Artist: Sonic’s Rendezvous Band   Album: No Sleep Till Ypsilanti   Label: Bang
+76. Artist: Spectral Voice   Album: Necrotic Demos   Label: Dark Descent
+77. Artist: Spits   Album: Vi   Label: Thriftstore Records
+
+Enter number of album for more information
+
+entering 77 will return:
+--------------------
+Spits - Vi
+                    
+LP: $19.75, 11/06/2020
+ 
+Ripping through a portal from the basements of Kalamazoo, Michigan, the release of The Spits VI has arrived. This full length, self recorded album from Thriftstore Records ranges from the weird to the wild. Buzz saw guitars and catchy hooks are mixed with low budget horror effects to create a unique view of a dystopian world. With songs of terror, despair, hope and heartbreak, this one has something for the whole nuclear family!
+--------------------
+
+'back' will prompt user how they want list ordered again
+'exit' will exit program
+
 
 ## Development
 
