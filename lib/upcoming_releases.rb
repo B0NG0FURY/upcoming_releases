@@ -1,6 +1,6 @@
-require 'nokogiri'
+require 'bundler/setup'
+Bundler.require
 require 'open-uri'
-require 'pry'
 
 require_relative "./upcoming_releases/version"
 require_relative "./upcoming_releases/cli"
